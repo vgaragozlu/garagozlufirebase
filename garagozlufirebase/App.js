@@ -28,6 +28,8 @@ const App = () => {
 
   const [name, setName] = useState();
 
+  const [nameFromDatabase, setNameFromDatabase] = useState();
+
   const onAuthStateChanged = (user) => {
     setUser(user);
     if (initializing) setInitializing(false);
@@ -47,12 +49,12 @@ const App = () => {
           console.log(
             'Girdiğiniz e-posta başka bir kullanıcı tarafından alındı !',
           );
-          alert('Girdiğiniz e-posta başka bir kullanıcı tarafından alındı !')
+          alert('Girdiğiniz e-posta başka bir kullanıcı tarafından alındı !');
         }
 
         if (error.code === 'auth/invalid-email') {
           console.log('Yanlış e-posta girdiniz !');
-          alert('Yanlış e-posta girdiniz !')
+          alert('Yanlış e-posta girdiniz !');
         }
 
         console.error(error);
@@ -103,6 +105,12 @@ const App = () => {
         setName();
         alert('Isminiz veritabanına eklendi!');
       });
+      
+      const c_user = usersCollection.doc('SqmwBfh6iefTceL78wGdNfs6RGB3').get();
+      
+      console.log((await c_user).data());
+      
+      setNameFromDatabase((await c_user).data().name);
   };
 
   // deleteNameFromDatabase fonksiyonu içinde DELETE işlemi gerçekleşmekte
@@ -131,7 +139,7 @@ const App = () => {
       <ScrollView
         style={{
           flex: 1,
-          backgroundColor: '#F1F1F1'
+          backgroundColor: '#F1F1F1',
         }}>
         <Image
           source={require('./logo.png')}
@@ -139,7 +147,7 @@ const App = () => {
             width: 50,
             height: 90,
             marginTop: 20,
-            alignSelf:'center'
+            alignSelf: 'center',
           }}
         />
 
@@ -153,7 +161,7 @@ const App = () => {
             width: 300,
             borderRadius: 10,
             borderColor: 'grey',
-            marginTop:10,
+            marginTop: 10,
           }}>
           <View>
             <TextInput
@@ -269,12 +277,20 @@ const App = () => {
 
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>Selam {user.email}</Text>
+      <Text>Hesaba bağlı e-posta: <Text style={{fontWeight:'bold'}}>{user.email}</Text></Text>
+      <Text>Databaseden READ edilen isim: <Text style={{fontWeight:'bold'}}>{nameFromDatabase}</Text></Text>
 
       <View style={{marginTop: 20}}>
         <TextInput
-          placeholder="Isminizi veritabanına ekleyin"
-          style={{width: 200, height: 40, borderWidth: 1}}
+          placeholder="Yeni isim giriniz"
+          style={{
+            paddingLeft: 10,
+            width: 200,
+            height: 40,
+            borderWidth: 0.5,
+            borderColor: 'grey',
+            borderRadius: 10,
+          }}
           value={name}
           onChangeText={setName}
         />
@@ -282,43 +298,43 @@ const App = () => {
       <TouchableOpacity onPress={addNameToDatabase}>
         <View
           style={{
-            backgroundColor: 'green',
-            width: 210,
-            height: 30,
+            backgroundColor: '#63D18D',
+            width: 200,
+            height: 40,
             borderRadius: 10,
             justifyContent: 'center',
             alignItems: 'center',
-            marginTop: 20,
+            marginTop: 30,
           }}>
-          <Text style={{color: 'white'}}>Ekle / Update the Document</Text>
+          <Text style={{color: 'white'}}>Ekle/Update the Document</Text>
         </View>
       </TouchableOpacity>
 
       <TouchableOpacity onPress={deleteNameFromDatabase}>
         <View
           style={{
-            backgroundColor: 'green',
-            width: 210,
-            height: 30,
+            backgroundColor: '#63D18D',
+            width: 200,
+            height: 40,
             borderRadius: 10,
             justifyContent: 'center',
             alignItems: 'center',
-            marginTop: 20,
+            marginTop: 30,
           }}>
-          <Text style={{color: 'white'}}>Ismi Veritabanından Sil / Delete</Text>
+          <Text style={{color: 'white'}}>Ismi Databaseden Sil/Delete</Text>
         </View>
       </TouchableOpacity>
 
       <TouchableOpacity onPress={signOut}>
         <View
           style={{
-            backgroundColor: 'red',
-            width: 100,
-            height: 30,
+            backgroundColor: '#E45B63',
+            width: 200,
+            height: 40,
             borderRadius: 10,
             justifyContent: 'center',
             alignItems: 'center',
-            marginTop: 20,
+            marginTop: 30,
           }}>
           <Text style={{color: 'white'}}>Oturumu kapat</Text>
         </View>
