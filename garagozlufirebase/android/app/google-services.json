@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1044674616681",
+    "project_id": "garagozlufirebase",
+    "storage_bucket": "garagozlufirebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1044674616681:android:4eaf7fbf534e82127671f8",
+        "android_client_info": {
+          "package_name": "com.garagozlufirebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1044674616681-fejqe29m496goe5jqn6co6uthvsvimvi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBigPSdETMwKjjFerI3r2YorqwBoH2-poI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1044674616681-fejqe29m496goe5jqn6co6uthvsvimvi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
