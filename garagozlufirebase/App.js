@@ -283,7 +283,7 @@ const App = () => {
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
       <Text>Hesaba bağlı e-posta: <Text style={{fontWeight:'bold'}}>{user.email}</Text></Text>
-      <Text>Databaseden READ edilen isim: <Text style={{fontWeight:'bold'}}>{nameFromDatabase}</Text></Text>
+      <Text>Databaseden (eger mevcut ise) READ edilen isim: <Text style={{fontWeight:'bold'}}>{nameFromDatabase}</Text></Text>
 
       <View style={{marginTop: 20}}>
         <TextInput
