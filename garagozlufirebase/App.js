@@ -47,10 +47,12 @@ const App = () => {
           console.log(
             'Girdiğiniz e-posta başka bir kullanıcı tarafından alındı !',
           );
+          alert('Girdiğiniz e-posta başka bir kullanıcı tarafından alındı !')
         }
 
         if (error.code === 'auth/invalid-email') {
           console.log('Yanlış e-posta girdiniz !');
+          alert('Yanlış e-posta girdiniz !')
         }
 
         console.error(error);
@@ -129,9 +131,7 @@ const App = () => {
       <ScrollView
         style={{
           flex: 1,
-          backgroundColor: '#F1F1F1',
-          //justifyContent: 'center',
-          //alignItems: 'center',
+          backgroundColor: '#F1F1F1'
         }}>
         <Image
           source={require('./logo.png')}
@@ -184,6 +184,7 @@ const App = () => {
               }}
               value={passwordInput}
               onChangeText={setPasswordInput}
+              secureTextEntry={true}
             />
           </View>
 
@@ -243,6 +244,7 @@ const App = () => {
               }}
               value={passwordInputRegister}
               onChangeText={setPasswordInputRegister}
+              secureTextEntry={true}
             />
           </View>
 
