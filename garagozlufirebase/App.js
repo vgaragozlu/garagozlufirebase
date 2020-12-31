@@ -7,6 +7,8 @@ import {
   Text,
   TouchableOpacity,
   TextInput,
+  ScrollView,
+  Image,
 } from 'react-native';
 
 import auth, {firebase} from '@react-native-firebase/auth';
@@ -30,7 +32,7 @@ const App = () => {
     setUser(user);
     if (initializing) setInitializing(false);
   };
-// Register fonksiyonu içerisinde CREATE işlemi de gerçekleşmektedir.
+  // Register fonksiyonu içerisinde CREATE işlemi de gerçekleşmektedir.
   const register = async () => {
     await auth()
       .createUserWithEmailAndPassword(
@@ -56,7 +58,7 @@ const App = () => {
     const usersCollection = firestore().collection('Users');
     const currentUser = firebase.auth().currentUser;
 
-    // CREATE 
+    // CREATE
     await usersCollection.doc(currentUser.uid).set({
       email: currentUser.email,
     });
@@ -87,7 +89,6 @@ const App = () => {
     auth().signOut().then(console.log('Kullanıcı oturum kapattı'));
   };
 
-
   // addNameToDatabase fonksiyonu içinde UPDATE işlemi de gerçekleşmekte
   const addNameToDatabase = async () => {
     const usersCollection = firestore().collection('Users');
@@ -95,24 +96,27 @@ const App = () => {
     // UPDATE
     await usersCollection
       .doc(user.uid)
-      .update({name:name}).then(()=>{setName();
-      alert('Isminiz veritabanına eklendi!')});
-    
+      .update({name: name})
+      .then(() => {
+        setName();
+        alert('Isminiz veritabanına eklendi!');
+      });
   };
-  
 
   // deleteNameFromDatabase fonksiyonu içinde DELETE işlemi gerçekleşmekte
   const deleteNameFromDatabase = async () => {
     const usersCollection = firestore().collection('Users');
 
-    // DELETE 
+    // DELETE
     await usersCollection
-      .doc(user.uid).update({name: firebase.firestore.FieldValue.delete()})
-          .then(()=>{setName();
-      alert('Isminiz veritabanından silindi !')});
-    
+      .doc(user.uid)
+      .update({name: firebase.firestore.FieldValue.delete()})
+      .then(() => {
+        setName();
+        alert('Isminiz veritabanından silindi !');
+      });
   };
-  
+
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
     return subscriber; // unsubscribe on unmount
@@ -122,82 +126,148 @@ const App = () => {
 
   if (!user) {
     return (
-      <View
+      <ScrollView
         style={{
           flex: 1,
-          backgroundColor: 'white',
-          justifyContent: 'center',
-          alignItems: 'center',
+          backgroundColor: '#F1F1F1',
+          //justifyContent: 'center',
+          //alignItems: 'center',
         }}>
-        <View>
-          <TextInput
-            style={{width: 200, height: 40, borderWidth: 1}}
-            value={usernameInput}
-            onChangeText={setUsernameInput}
-          />
-        </View>
+        <Image
+          source={require('./logo.png')}
+          style={{
+            width: 50,
+            height: 90,
+            marginTop: 20,
+            alignSelf:'center'
+          }}
+        />
 
-        <View style={{marginTop: 20}}>
-          <TextInput
-            style={{width: 200, height: 40, borderWidth: 1}}
-            value={passwordInput}
-            onChangeText={setPasswordInput}
-          />
-        </View>
-
-        <TouchableOpacity onPress={signIn}>
-          <View
-            style={{
-              backgroundColor: 'green',
-              width: 100,
-              height: 30,
-              borderRadius: 10,
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginTop: 30,
-            }}>
-            <Text style={{color: 'white'}}>Oturum aç</Text>
+        <View
+          style={{
+            alignSelf: 'center',
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: 'white',
+            height: 270,
+            width: 300,
+            borderRadius: 10,
+            borderColor: 'grey',
+            marginTop:10,
+          }}>
+          <View>
+            <TextInput
+              placeholder="kullanıcı adı"
+              style={{
+                paddingLeft: 10,
+                width: 200,
+                height: 40,
+                borderWidth: 0.5,
+                borderColor: 'grey',
+                borderRadius: 10,
+              }}
+              value={usernameInput}
+              onChangeText={setUsernameInput}
+            />
           </View>
-        </TouchableOpacity>
 
-        <View style={{marginTop: 50}}>
-          <TextInput
-            style={{width: 200, height: 40, borderWidth: 1}}
-            value={usernameInputRegister}
-            onChangeText={setUsernameInputRegister}
-          />
-        </View>
-
-        <View style={{marginTop: 20}}>
-          <TextInput
-            style={{width: 200, height: 40, borderWidth: 1}}
-            value={passwordInputRegister}
-            onChangeText={setPasswordInputRegister}
-          />
-        </View>
-
-        <TouchableOpacity onPress={register}>
-          <View
-            style={{
-              backgroundColor: 'green',
-              width: 100,
-              height: 30,
-              borderRadius: 10,
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginTop: 20,
-            }}>
-            <Text style={{color: 'white'}}>Kayıt ol</Text>
+          <View style={{marginTop: 20}}>
+            <TextInput
+              placeholder="şifre"
+              style={{
+                paddingLeft: 10,
+                width: 200,
+                height: 40,
+                borderWidth: 0.5,
+                borderColor: 'grey',
+                borderRadius: 10,
+              }}
+              value={passwordInput}
+              onChangeText={setPasswordInput}
+            />
           </View>
-        </TouchableOpacity>
-      </View>
+
+          <TouchableOpacity onPress={signIn}>
+            <View
+              style={{
+                backgroundColor: 'green',
+                width: 200,
+                height: 30,
+                borderRadius: 10,
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginTop: 30,
+              }}>
+              <Text style={{color: 'white'}}>Oturum aç</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+        <View
+          style={{
+            alignSelf: 'center',
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: 'white',
+            height: 270,
+            width: 300,
+            borderRadius: 10,
+            borderColor: 'grey',
+            marginTop: 40,
+          }}>
+          <View style={{marginTop: 50}}>
+            <TextInput
+              placeholder="kullanıcı adı"
+              style={{
+                paddingLeft: 10,
+                width: 200,
+                height: 40,
+                borderWidth: 0.5,
+                borderColor: 'grey',
+                borderRadius: 10,
+              }}
+              value={usernameInputRegister}
+              onChangeText={setUsernameInputRegister}
+            />
+          </View>
+
+          <View style={{marginTop: 20}}>
+            <TextInput
+              placeholder="şifre"
+              style={{
+                paddingLeft: 10,
+                width: 200,
+                height: 40,
+                borderWidth: 0.5,
+                borderColor: 'grey',
+                borderRadius: 10,
+              }}
+              value={passwordInputRegister}
+              onChangeText={setPasswordInputRegister}
+            />
+          </View>
+
+          <TouchableOpacity onPress={register}>
+            <View
+              style={{
+                backgroundColor: 'green',
+                width: 200,
+                height: 30,
+                borderRadius: 10,
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginTop: 20,
+              }}>
+              <Text style={{color: 'white'}}>Kayıt ol</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
     );
   }
 
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
       <Text>Selam {user.email}</Text>
-      
 
       <View style={{marginTop: 20}}>
         <TextInput
@@ -208,37 +278,36 @@ const App = () => {
         />
       </View>
       <TouchableOpacity onPress={addNameToDatabase}>
-          <View
-            style={{
-              backgroundColor: 'green',
-              width: 210,
-              height: 30,
-              borderRadius: 10,
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginTop: 20,
-            }}>
-            <Text style={{color: 'white'}}>Ekle / Update the Document</Text>
-          </View>
-        </TouchableOpacity>
+        <View
+          style={{
+            backgroundColor: 'green',
+            width: 210,
+            height: 30,
+            borderRadius: 10,
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: 20,
+          }}>
+          <Text style={{color: 'white'}}>Ekle / Update the Document</Text>
+        </View>
+      </TouchableOpacity>
 
+      <TouchableOpacity onPress={deleteNameFromDatabase}>
+        <View
+          style={{
+            backgroundColor: 'green',
+            width: 210,
+            height: 30,
+            borderRadius: 10,
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: 20,
+          }}>
+          <Text style={{color: 'white'}}>Ismi Veritabanından Sil / Delete</Text>
+        </View>
+      </TouchableOpacity>
 
-        <TouchableOpacity onPress={deleteNameFromDatabase}>
-          <View
-            style={{
-              backgroundColor: 'green',
-              width: 210,
-              height: 30,
-              borderRadius: 10,
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginTop: 20,
-            }}>
-            <Text style={{color: 'white'}}>Ismi Veritabanından Sil / Delete</Text>
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={signOut}>
+      <TouchableOpacity onPress={signOut}>
         <View
           style={{
             backgroundColor: 'red',
