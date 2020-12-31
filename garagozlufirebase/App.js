@@ -190,9 +190,9 @@ const App = () => {
           <TouchableOpacity onPress={signIn}>
             <View
               style={{
-                backgroundColor: 'green',
+                backgroundColor: '#63D18D',
                 width: 200,
-                height: 30,
+                height: 40,
                 borderRadius: 10,
                 justifyContent: 'center',
                 alignItems: 'center',
@@ -249,9 +249,9 @@ const App = () => {
           <TouchableOpacity onPress={register}>
             <View
               style={{
-                backgroundColor: 'green',
+                backgroundColor: '#63D18D',
                 width: 200,
-                height: 30,
+                height: 40,
                 borderRadius: 10,
                 justifyContent: 'center',
                 alignItems: 'center',
