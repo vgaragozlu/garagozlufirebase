@@ -91,6 +91,11 @@ const App = () => {
 
   const signOut = () => {
     auth().signOut().then(console.log('Kullanıcı oturum kapattı'));
+    //kolaylik olsun diye sifirliyorum state-leri
+    setUsernameInput();
+    setUsernameInputRegister();
+    setPasswordInput();
+    setPasswordInputRegister();
   };
 
   // addNameToDatabase fonksiyonu içinde UPDATE işlemi de gerçekleşmekte
