@@ -106,7 +106,7 @@ const App = () => {
         alert('Isminiz veritabanına eklendi!');
       });
       
-      const c_user = usersCollection.doc('SqmwBfh6iefTceL78wGdNfs6RGB3').get();
+      const c_user = usersCollection.doc(user.uid).get();
       
       console.log((await c_user).data());
       
